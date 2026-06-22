@@ -4,7 +4,7 @@ const User = require('../models/user.model');
 const { verifyAccessToken } = require('../utils/jwt');
 
 // Protect routes - verify JWT token
-const protect = asyncHandler(async (req, res, next) => {
+const protect = asyncHandler(async (req, next) => {
   let token;
 
   // Get token from Authorization header
