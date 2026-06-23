@@ -24,5 +24,5 @@ router.get("/", (req, res) => {
 
 // Module Routes
 router.use("/auth", require("../modules/auth/auth.routes"));
-
+router.use('/hr', require('../modules/hr/hr.routes')); 
 module.exports = router;
