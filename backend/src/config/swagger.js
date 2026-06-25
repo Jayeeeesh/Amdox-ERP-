@@ -1,88 +1,87 @@
-const swaggerJsdoc = require('swagger-jsdoc');
-require('dotenv').config();
+const swaggerJsdoc = require("swagger-jsdoc");
+require("dotenv").config();
 
 const options = {
   definition: {
-    openapi: '3.0.3',
+    openapi: "3.0.3",
 
     info: {
-      title: 'Amdox ERP API',
-      version: '1.0.0',
-      description:
-        'AI-Powered Cloud ERP Suite REST API Documentation',
+      title: "Amdox ERP API",
+      version: "1.0.0",
+      description: "AI-Powered Cloud ERP Suite REST API Documentation",
       contact: {
-        name: 'Amdox Team',
+        name: "Amdox Team",
       },
     },
 
     servers: [
       {
         url: `http://localhost:${process.env.PORT || 5000}/api/v1`,
-        description: 'Development Server',
+        description: "Development Server",
       },
       {
         url: process.env.PRODUCTION_URL,
-        description: 'Production Server',
+        description: "Production Server",
       },
     ],
 
     components: {
       securitySchemes: {
         bearerAuth: {
-          type: 'http',
-          scheme: 'bearer',
-          bearerFormat: 'JWT',
+          type: "http",
+          scheme: "bearer",
+          bearerFormat: "JWT",
         },
       },
 
       schemas: {
         ApiResponse: {
-          type: 'object',
+          type: "object",
           properties: {
             success: {
-              type: 'boolean',
+              type: "boolean",
             },
             message: {
-              type: 'string',
+              type: "string",
             },
             data: {},
           },
         },
 
         ApiError: {
-          type: 'object',
+          type: "object",
           properties: {
             success: {
-              type: 'boolean',
+              type: "boolean",
               example: false,
             },
             message: {
-              type: 'string',
+              type: "string",
             },
             errors: {
-              type: 'array',
+              type: "array",
             },
           },
         },
 
         User: {
-          type: 'object',
+          type: "object",
           properties: {
             _id: {
-              type: 'string',
-              example: '665abc123456',
+              type: "string",
+              example: "665abc123456",
             },
             name: {
-              type: 'string',
-              example: 'Jayesh',
+              type: "string",
+              example: "Jayesh",
             },
             email: {
-              type: 'string',
-              example: 'jayesh@example.com',
+              type: "string",
+              example: "jayesh@example.com",
             },
             role: {
-              type: 'string',
-              example: 'admin',
+              type: "string",
+              example: "admin",
             },
           },
         },
@@ -90,29 +89,18 @@ const options = {
     },
 
     tags: [
-      {
-        name: 'Auth',
-        description: 'Authentication APIs',
-      },
-      {
-        name: 'Users',
-        description: 'User Management APIs',
-      },
-      {
-        name: 'HR',
-        description: 'HR Module APIs',
-      },
-      {
-        name: 'Finance',
-        description: 'Finance Module APIs',
-      },
+      { name: "Auth", description: "Authentication APIs" },
+      { name: "Users", description: "User Management APIs" },
+      { name: "HR", description: "HR Module APIs" },
+      { name: "Finance", description: "Finance Module APIs" },
+      { name: "Supply Chain", description: "Supply Chain & Procurement APIs" },
+      { name: "Projects", description: "Project Management APIs" },
+      { name: "Dashboard", description: "Dashboard APIs" },
+      { name: "Notifications", description: "Notification APIs" },
     ],
   },
 
-  apis: [
-    './src/modules/**/*.routes.js',
-    './src/modules/**/*.controller.js',
-  ],
+  apis: ["./src/modules/**/*.routes.js", "./src/modules/**/*.controller.js"],
 };
 
 module.exports = swaggerJsdoc(options);
