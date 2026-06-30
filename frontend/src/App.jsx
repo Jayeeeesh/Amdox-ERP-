@@ -1,14 +1,29 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
-import './App.css'
+import { useEffect } from "react";
+import { BrowserRouter } from "react-router-dom";
+
+import AppRoutes from "./routes/AppRoutes";
+import useAuthStore from "./store/authStore";
+
+import "./App.css";
 
 function App() {
+  const initialize = useAuthStore((state) => state.initialize);
+
+  const isLoading = useAuthStore((state) => state.isLoading);
+
+  useEffect(() => {
+    initialize();
+  }, [initialize]);
+
+  if (isLoading) {
+    return <div className="app-loader">Loading...</div>;
+  }
+
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<h1>Amdox ERP</h1>} />
-      </Routes>
-    </Router>
-  )
+    <BrowserRouter>
+      <AppRoutes />
+    </BrowserRouter>
+  );
 }
 
-export default App
+export default App;
