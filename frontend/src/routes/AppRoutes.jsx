@@ -1,38 +1,36 @@
 import { Routes, Route, Navigate } from "react-router-dom";
 import useAuthStore from "../store/authStore";
+import MainLayout from "../layouts/MainLayout";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
 import Dashboard from "../pages/Dashboard";
 import NotFound from "../pages/NotFound";
 
-// Route constants
 const ROUTES = {
   HOME: "/",
   LOGIN: "/login",
   REGISTER: "/register",
   DASHBOARD: "/dashboard",
+  HR: "/hr",
+  FINANCE: "/finance",
+  SUPPLY_CHAIN: "/supply-chain",
+  USERS: "/users",
 };
 
-// Protected Route
 const ProtectedRoute = ({ children }) => {
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
   const isLoading = useAuthStore((state) => state.isLoading);
 
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
+  if (isLoading) return <div>Loading...</div>;
 
   return isAuthenticated ? children : <Navigate to={ROUTES.LOGIN} replace />;
 };
 
-// Public Route
 const PublicRoute = ({ children }) => {
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
   const isLoading = useAuthStore((state) => state.isLoading);
 
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
+  if (isLoading) return <div>Loading...</div>;
 
   return isAuthenticated ? (
     <Navigate to={ROUTES.DASHBOARD} replace />
@@ -62,15 +60,20 @@ const AppRoutes = () => {
         }
       />
 
-      {/* Protected Routes */}
+      {/* Protected Routes with Layout */}
       <Route
-        path={ROUTES.DASHBOARD}
         element={
           <ProtectedRoute>
-            <Dashboard />
+            <MainLayout />
           </ProtectedRoute>
         }
-      />
+      >
+        <Route path={ROUTES.DASHBOARD} element={<Dashboard />} />
+        <Route path={ROUTES.HR} element={<div>HR Page Coming Soon</div>} />
+        <Route path={ROUTES.FINANCE} element={<div>Finance Page Coming Soon</div>} />
+        <Route path={ROUTES.SUPPLY_CHAIN} element={<div>Supply Chain Coming Soon</div>} />
+        <Route path={ROUTES.USERS} element={<div>Users Page Coming Soon</div>} />
+      </Route>
 
       {/* Default */}
       <Route
